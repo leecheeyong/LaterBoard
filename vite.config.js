@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue(), tailwindcss()],
   build: {
     rollupOptions: {
-      external: ["firebase/firestore", "firebase/auth"],
+      external: ["firebase/firestore", "firebase/auth", "firebase/app"],
     },
   },
 });

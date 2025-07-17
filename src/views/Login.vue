@@ -9,7 +9,7 @@
             LaterBoard
           </h1>
           <p class="text-gray-700 text-base">
-             Your ideas, gently stored for later
+            Your ideas, gently stored for later
           </p>
         </div>
 

@@ -1,18 +1,18 @@
-import { ref } from 'vue';
-import { db } from '../firebase';
-import { 
-  collection, 
-  doc, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc, 
-  getDocs, 
-  query, 
-  where, 
+import { ref } from "vue";
+import { db } from "../firebase";
+import {
+  collection,
+  doc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  getDocs,
+  query,
+  where,
   orderBy,
   onSnapshot,
-  serverTimestamp
-} from 'firebase/firestore';
+  serverTimestamp,
+} from "firebase/firestore";
 
 export function useFirestore() {
   const loading = ref(false);
@@ -25,7 +25,7 @@ export function useFirestore() {
       const docRef = await addDoc(collection(db, collectionName), {
         ...data,
         createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
       return { success: true, id: docRef.id };
     } catch (err) {
@@ -42,7 +42,7 @@ export function useFirestore() {
     try {
       await updateDoc(doc(db, collectionName, id), {
         ...data,
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
       });
       return { success: true };
     } catch (err) {
@@ -72,17 +72,17 @@ export function useFirestore() {
     error.value = null;
     try {
       let q = collection(db, collectionName);
-      
+
       if (conditions.length > 0) {
         q = query(q, ...conditions);
       }
-      
+
       const querySnapshot = await getDocs(q);
       const documents = [];
       querySnapshot.forEach((doc) => {
         documents.push({ id: doc.id, ...doc.data() });
       });
-      
+
       return { success: true, data: documents };
     } catch (err) {
       error.value = err.message;
@@ -94,11 +94,11 @@ export function useFirestore() {
 
   const subscribeToCollection = (collectionName, conditions, callback) => {
     let q = collection(db, collectionName);
-    
+
     if (conditions.length > 0) {
       q = query(q, ...conditions);
     }
-    
+
     return onSnapshot(q, (querySnapshot) => {
       const documents = [];
       querySnapshot.forEach((doc) => {
@@ -115,6 +115,6 @@ export function useFirestore() {
     updateDocument,
     deleteDocument,
     getDocuments,
-    subscribeToCollection
+    subscribeToCollection,
   };
 }

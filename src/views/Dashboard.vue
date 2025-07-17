@@ -5,14 +5,14 @@
     <header
       class="bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200 sticky top-0 z-30"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-6">
-          <div class="flex items-center gap-3">
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div class="flex flex-col sm:flex-row justify-between items-center py-4 sm:py-6 gap-2 sm:gap-0">
+          <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center sm:justify-start">
             <span
-              class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary-100 text-primary-600 shadow-md"
+              class="inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary-100 text-primary-600 shadow-md"
             >
               <svg
-                class="w-6 h-6"
+                class="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
@@ -21,17 +21,17 @@
                 <path d="M12 6v6l4 2" />
               </svg>
             </span>
-            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+            <h1 class="text-xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
               Later<span class="text-indigo-600">Board</span>
             </h1>
           </div>
-          <div class="flex items-center space-x-4">
-            <span class="text-base text-gray-700 font-medium"
-              >👋 Welcome, {{ user?.email }}</span
-            >
+          <div class="flex flex-col sm:flex-row items-center w-full sm:w-auto gap-2 sm:gap-4">
+            <span class="text-sm sm:text-base text-gray-700 font-medium text-center sm:text-left">
+              👋 Welcome, {{ user?.email }}
+            </span>
             <button
               @click="handleLogout"
-              class="btn-secondary text-base rounded-lg shadow-md px-4 py-2"
+              class="btn-secondary text-sm sm:text-base rounded-lg shadow-md px-3 py-2 sm:px-4 sm:py-2 w-full sm:w-auto"
             >
               Sign Out
             </button>
@@ -131,62 +131,47 @@
       <div
         v-if="showAddCardModal"
         class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
+        @click="closeAddCardModal"
       >
         <div
-          class="bg-white/95 backdrop-blur-2xl rounded-3xl p-10 w-full max-w-lg mx-4 shadow-2xl border-2 border-primary-200"
+          class="bg-white/95 backdrop-blur-2xl rounded-3xl p-4 sm:p-10 w-full max-w-lg mx-1 sm:mx-4 shadow-2xl border-2 border-primary-200 overflow-y-auto max-h-[95vh]"
+          @click.stop
         >
-          <h3 class="text-3xl font-extrabold mb-8 text-primary-700 text-center">
+          <h3 class="text-xl sm:text-3xl font-extrabold mb-4 sm:mb-8 text-primary-700 text-center">
             Add New Idea
           </h3>
-          <form @submit.prevent="addCard" class="space-y-8">
+          <form @submit.prevent="addCard" class="space-y-4 sm:space-y-8">
             <div>
-              <label class="block text-lg font-semibold text-gray-700 mb-2"
-                >Title</label
-              >
+              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Title</label>
               <input
                 v-model="newCard.title"
                 type="text"
                 required
-                class="w-full px-5 py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-lg shadow-sm"
+                class="w-full px-3 sm:px-5 py-2 sm:py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-sm sm:text-lg shadow-sm"
                 placeholder="Enter idea title"
               />
             </div>
             <div>
-              <label class="block text-lg font-semibold text-gray-700 mb-2"
-                >Description</label
-              >
+              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Description</label>
               <textarea
                 v-model="newCard.description"
                 rows="3"
-                class="w-full px-5 py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-lg shadow-sm"
+                class="w-full px-3 sm:px-5 py-2 sm:py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-sm sm:text-lg shadow-sm"
                 placeholder="Optional description"
               ></textarea>
             </div>
             <div>
-              <label class="block text-lg font-semibold text-gray-700 mb-2"
-                >Tag</label
-              >
+              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Tag</label>
               <input
                 v-model="newCard.tag"
                 type="text"
-                class="w-full px-5 py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-lg shadow-sm"
+                class="w-full px-3 sm:px-5 py-2 sm:py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-sm sm:text-lg shadow-sm"
                 placeholder="e.g., exciting, cool, maybe"
               />
             </div>
-            <div class="flex space-x-4 pt-2">
-              <button
-                type="submit"
-                class="flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-4 text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition"
-              >
-                Add Idea
-              </button>
-              <button
-                type="button"
-                @click="closeAddCardModal"
-                class="flex-1 btn-secondary rounded-xl py-4 text-lg font-bold"
-              >
-                Cancel
-              </button>
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2">
+              <button type="submit" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition">Add Idea</button>
+              <button type="button" @click="closeAddCardModal" class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold">Cancel</button>
             </div>
           </form>
         </div>
@@ -195,69 +180,48 @@
       <div
         v-if="showCardModal"
         class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
+        @click="closeCardModal"
       >
         <div
-          class="bg-white/95 backdrop-blur-2xl rounded-3xl p-10 w-full max-w-lg mx-4 shadow-2xl border-2 border-primary-200"
+          class="bg-white/95 backdrop-blur-2xl rounded-3xl p-4 sm:p-10 w-full max-w-lg mx-1 sm:mx-4 shadow-2xl border-2 border-primary-200 overflow-y-auto max-h-[95vh]"
+          @click.stop
         >
-          <h3 class="text-3xl font-extrabold mb-8 text-primary-700 text-center">
+          <h3 class="text-xl sm:text-3xl font-extrabold mb-4 sm:mb-8 text-primary-700 text-center">
             Edit Idea
           </h3>
-          <form @submit.prevent="updateCard" class="space-y-8">
+          <form @submit.prevent="updateCard" class="space-y-4 sm:space-y-8">
             <div>
-              <label class="block text-lg font-semibold text-gray-700 mb-2"
-                >Title</label
-              >
+              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Title</label>
               <input
                 v-model="editingCard.title"
                 type="text"
                 required
-                class="w-full px-5 py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-lg shadow-sm"
+                class="w-full px-3 sm:px-5 py-2 sm:py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-sm sm:text-lg shadow-sm"
                 placeholder="Enter idea title"
               />
             </div>
             <div>
-              <label class="block text-lg font-semibold text-gray-700 mb-2"
-                >Description</label
-              >
+              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Description</label>
               <textarea
                 v-model="editingCard.description"
                 rows="3"
-                class="w-full px-5 py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-lg shadow-sm"
+                class="w-full px-3 sm:px-5 py-2 sm:py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-sm sm:text-lg shadow-sm"
                 placeholder="Optional description"
               ></textarea>
             </div>
             <div>
-              <label class="block text-lg font-semibold text-gray-700 mb-2"
-                >Tag</label
-              >
+              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Tag</label>
               <input
                 v-model="editingCard.tag"
                 type="text"
-                class="w-full px-5 py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-lg shadow-sm"
+                class="w-full px-3 sm:px-5 py-2 sm:py-4 border border-primary-200 rounded-xl focus:outline-none focus:ring-primary-300 focus:border-primary-400 text-gray-900 bg-gray-50 placeholder-gray-400 transition text-sm sm:text-lg shadow-sm"
                 placeholder="e.g., exciting, cool, maybe"
               />
             </div>
-            <div class="flex space-x-4 pt-2">
-              <button
-                type="submit"
-                class="flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-4 text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition"
-              >
-                Save Changes
-              </button>
-              <button
-                type="button"
-                @click="deleteCard"
-                class="flex-1 bg-red-600 hover:bg-red-700 text-white rounded-xl py-4 text-lg font-bold shadow-lg transition"
-              >
-                Delete
-              </button>
-              <button
-                type="button"
-                @click="closeCardModal"
-                class="flex-1 btn-secondary rounded-xl py-4 text-lg font-bold"
-              >
-                Cancel
-              </button>
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2">
+              <button type="submit" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition">Save Changes</button>
+              <button type="button" @click="deleteCard" class="w-full sm:flex-1 bg-red-600 hover:bg-red-700 text-white rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg transition">Delete</button>
+              <button type="button" @click="closeCardModal" class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold">Cancel</button>
             </div>
           </form>
         </div>

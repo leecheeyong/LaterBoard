@@ -3,10 +3,13 @@
     class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-emerald-50"
   >
     <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h1 class="text-4xl sm:text-6xl font-bold text-gray-900 mb-6">
-          Later<span class="text-indigo-600">Board</span>
-        </h1>
+      <div class="text-center mb-16 flex flex-col items-center justify-center">
+        <div class="flex items-center justify-center mb-4 gap-2">
+          <img src="/logo.png" alt="LaterBoard Logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain align-middle" style="margin-bottom:0;" />
+          <h1 class="text-4xl sm:text-6xl font-bold text-gray-900 mb-0 flex items-center" style="line-height:1;">
+            Later<span class="text-indigo-600">Board</span>
+          </h1>
+        </div>
         <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
           Your ideas, gently stored for later.
         </p>
@@ -110,6 +113,27 @@
       </div>
     </div>
   </div>
+     <footer class="py-8 text-center text-gray-500 text-sm">
+      <p>
+        Made with <span class="text-red-500">❤️</span> by
+        <a
+          href="https://github.com/leecheeyong"
+          target="_blank"
+          class="text-gray-700 hover:underline"
+        >
+          Chee Yong Lee
+        </a>
+      </p>
+      <p class="mt-1">
+        Project available as open source under the terms of
+        <a
+          href="https://github.com/leecheeyong/laterboard/blob/main/LICENSE"
+          target="_blank"
+          class="text-gray-700 hover:underline"
+          >MIT License</a
+        >
+      </p>
+    </footer>
 </template>
 
 <script setup>

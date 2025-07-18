@@ -253,7 +253,7 @@
       <p class="mt-1">
         Project available as open source under the terms of
         <a
-          href="https://github.com/leecheeyong/memstore/blob/main/LICENSE"
+          href="https://github.com/leecheeyong/laterboard/blob/main/LICENSE"
           target="_blank"
           class="text-gray-700 hover:underline"
           >MIT License</a

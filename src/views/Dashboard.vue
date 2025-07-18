@@ -69,7 +69,7 @@
       <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-10">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           <div
-            v-for="stack in stacks"
+            v-for="stack in DEFAULT_STACKS"
             :key="stack.id"
             class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-100 p-8 flex flex-col min-h-[340px] transition-all duration-200 hover:scale-[1.02]"
             @drop="onDrop($event, stack.id)"
@@ -170,7 +170,10 @@
               />
             </div>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2">
-              <button type="submit" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition">Add Idea</button>
+              <button type="submit" :disabled="addLoading" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+                <span v-if="addLoading">Saving...</span>
+                <span v-else>Add Idea</span>
+              </button>
               <button type="button" @click="closeAddCardModal" class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold">Cancel</button>
             </div>
           </form>
@@ -192,7 +195,7 @@
             </svg>
           </button>
           <button @click="closeCardModal" class="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-primary-500 text-2xl sm:text-3xl font-bold focus:outline-none transition" aria-label="Close">&times;</button>
-          <h3 class="text-xl sm:text-3xl font-extrabold mb-4 sm:mb-8 text-primary-700 text-center">
+          <h3 class="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 text-primary-700 text-center">
             Edit Idea
           </h3>
           <form @submit.prevent="updateCard" class="space-y-4 sm:space-y-8">
@@ -225,7 +228,10 @@
               />
             </div>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2">
-              <button type="submit" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition">Save Changes</button>
+              <button type="submit" :disabled="updateLoading" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+                <span v-if="updateLoading">Saving...</span>
+                <span v-else>Save Changes</span>
+              </button>
               <button type="button" @click="closeCardModal" class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold">Cancel</button>
             </div>
           </form>
@@ -233,6 +239,27 @@
       </div>
     </main>
   </div>
+   <footer class="py-8 text-center text-gray-500 text-sm">
+      <p>
+        Made with <span class="text-red-500">❤️</span> by
+        <a
+          href="https://github.com/leecheeyong"
+          target="_blank"
+          class="text-gray-700 hover:underline"
+        >
+          Chee Yong Lee
+        </a>
+      </p>
+      <p class="mt-1">
+        Project available as open source under the terms of
+        <a
+          href="https://github.com/leecheeyong/memstore/blob/main/LICENSE"
+          target="_blank"
+          class="text-gray-700 hover:underline"
+          >MIT License</a
+        >
+      </p>
+    </footer>
 </template>
 
 <script setup>
@@ -241,7 +268,7 @@ import { useFirestore } from "../composables/useFirestore";
 import { useAuth } from "../composables/useAuth";
 import { where, orderBy } from "firebase/firestore";
 
-const { user } = useAuth();
+const { user, logout } = useAuth();
 const { addDocument, updateDocument, deleteDocument, subscribeToCollection } =
   useFirestore();
 
@@ -253,6 +280,14 @@ const editingCard = ref(null);
 const newCard = ref({ title: "", description: "", tag: "" });
 const randomCard = ref(null);
 const selectedStackId = ref(null);
+const updateLoading = ref(false);
+const addLoading = ref(false);
+
+const DEFAULT_STACKS = [
+  { id: 'ideas-i-like', name: 'Ideas I Like' },
+  { id: 'maybe-later', name: 'Maybe Later' },
+  { id: 'someday', name: 'Someday...' },
+];
 
 function getStackCards(stackId) {
   return cards.value.filter((card) => card.stackId === stackId);
@@ -274,13 +309,6 @@ watch(cards, () => {
 function subscribeUserCollections() {
   if (user.value && user.value.uid) {
     subscribeToCollection(
-      "stacks",
-      [where("userId", "==", user.value.uid), orderBy("createdAt")],
-      (data) => {
-        stacks.value = data;
-      },
-    );
-    subscribeToCollection(
       "cards",
       [where("userId", "==", user.value.uid), orderBy("createdAt", "desc")],
       (data) => {
@@ -293,19 +321,14 @@ function subscribeUserCollections() {
 
 onMounted(() => {
   subscribeUserCollections();
+  if (!user.value) {
+    window.location.href = "/login";
+  }
 });
-
-watch(
-  () => user.value && user.value.uid,
-  (val) => {
-    if (val) {
-      subscribeUserCollections();
-    }
-  },
-);
 
 async function addCard() {
   if (!newCard.value.title.trim()) return;
+  addLoading.value = true;
   const result = await addDocument("cards", {
     title: newCard.value.title,
     description: newCard.value.description,
@@ -313,6 +336,7 @@ async function addCard() {
     stackId: selectedStackId.value,
     userId: user.value.uid,
   });
+  addLoading.value = false;
   if (result.success) {
     closeAddCardModal();
   } else {
@@ -343,12 +367,14 @@ function closeCardModal() {
 
 async function updateCard() {
   if (!editingCard.value || !editingCard.value.title.trim()) return;
+  updateLoading.value = true;
   const result = await updateDocument("cards", editingCard.value.id, {
     title: editingCard.value.title,
     description: editingCard.value.description,
     tag: editingCard.value.tag,
     stackId: editingCard.value.stackId,
   });
+  updateLoading.value = false;
   if (result.success) {
     closeCardModal();
   } else {
@@ -366,5 +392,10 @@ async function deleteCard() {
       alert("Failed to delete idea: " + (result.error || "Unknown error"));
     }
   }
+}
+
+function handleLogout() {
+  logout();
+  window.location.href = "/";
 }
 </script>

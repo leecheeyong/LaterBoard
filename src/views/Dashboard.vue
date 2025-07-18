@@ -6,8 +6,12 @@
       class="bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200 sticky top-0 z-30"
     >
       <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-        <div class="flex flex-col sm:flex-row justify-between items-center py-4 sm:py-6 gap-2 sm:gap-0">
-          <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center sm:justify-start">
+        <div
+          class="flex flex-col sm:flex-row justify-between items-center py-4 sm:py-6 gap-2 sm:gap-0"
+        >
+          <div
+            class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-center sm:justify-start"
+          >
             <span
               class="inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary-100 text-primary-600 shadow-md"
             >
@@ -21,12 +25,18 @@
                 <path d="M12 6v6l4 2" />
               </svg>
             </span>
-            <h1 class="text-xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+            <h1
+              class="text-xl sm:text-3xl font-extrabold text-gray-900 tracking-tight"
+            >
               Later<span class="text-indigo-600">Board</span>
             </h1>
           </div>
-          <div class="flex flex-col sm:flex-row items-center w-full sm:w-auto gap-2 sm:gap-4">
-            <span class="text-sm sm:text-base text-gray-700 font-medium text-center sm:text-left">
+          <div
+            class="flex flex-col sm:flex-row items-center w-full sm:w-auto gap-2 sm:gap-4"
+          >
+            <span
+              class="text-sm sm:text-base text-gray-700 font-medium text-center sm:text-left"
+            >
               👋 Welcome, {{ user?.email }}
             </span>
             <button
@@ -137,12 +147,17 @@
           class="bg-white/95 backdrop-blur-2xl rounded-3xl p-4 sm:p-10 w-full max-w-lg mx-1 sm:mx-4 shadow-2xl border-2 border-primary-200 overflow-y-auto max-h-[95vh]"
           @click.stop
         >
-          <h3 class="text-xl sm:text-3xl font-extrabold mb-4 sm:mb-8 text-primary-700 text-center">
+          <h3
+            class="text-xl sm:text-3xl font-extrabold mb-4 sm:mb-8 text-primary-700 text-center"
+          >
             Add New Idea
           </h3>
           <form @submit.prevent="addCard" class="space-y-4 sm:space-y-8">
             <div>
-              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Title</label>
+              <label
+                class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2"
+                >Title</label
+              >
               <input
                 v-model="newCard.title"
                 type="text"
@@ -152,7 +167,10 @@
               />
             </div>
             <div>
-              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Description</label>
+              <label
+                class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2"
+                >Description</label
+              >
               <textarea
                 v-model="newCard.description"
                 rows="3"
@@ -161,7 +179,10 @@
               ></textarea>
             </div>
             <div>
-              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Tag</label>
+              <label
+                class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2"
+                >Tag</label
+              >
               <input
                 v-model="newCard.tag"
                 type="text"
@@ -169,12 +190,24 @@
                 placeholder="e.g., exciting, cool, maybe"
               />
             </div>
-            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2">
-              <button type="submit" :disabled="addLoading" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+            <div
+              class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2"
+            >
+              <button
+                type="submit"
+                :disabled="addLoading"
+                class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              >
                 <span v-if="addLoading">Saving...</span>
                 <span v-else>Add Idea</span>
               </button>
-              <button type="button" @click="closeAddCardModal" class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold">Cancel</button>
+              <button
+                type="button"
+                @click="closeAddCardModal"
+                class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold"
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
@@ -189,18 +222,44 @@
           class="bg-white/95 backdrop-blur-2xl rounded-3xl p-4 sm:p-10 w-full max-w-lg mx-1 sm:mx-4 shadow-2xl border-2 border-primary-200 overflow-y-auto max-h-[95vh] relative"
           @click.stop
         >
-          <button @click="deleteCard" class="absolute top-2 left-2 sm:top-4 sm:left-4 text-red-500 hover:text-red-700 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-400 transition" aria-label="Delete">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V5a2 2 0 012-2h2a2 2 0 012 2v2" />
+          <button
+            @click="deleteCard"
+            class="absolute top-2 left-2 sm:top-4 sm:left-4 text-red-500 hover:text-red-700 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+            aria-label="Delete"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 sm:h-7 sm:w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V5a2 2 0 012-2h2a2 2 0 012 2v2"
+              />
             </svg>
           </button>
-          <button @click="closeCardModal" class="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-primary-500 text-2xl sm:text-3xl font-bold focus:outline-none transition" aria-label="Close">&times;</button>
-          <h3 class="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 text-primary-700 text-center">
+          <button
+            @click="closeCardModal"
+            class="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-primary-500 text-2xl sm:text-3xl font-bold focus:outline-none transition"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+          <h3
+            class="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 text-primary-700 text-center"
+          >
             Edit Idea
           </h3>
           <form @submit.prevent="updateCard" class="space-y-4 sm:space-y-8">
             <div>
-              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Title</label>
+              <label
+                class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2"
+                >Title</label
+              >
               <input
                 v-model="editingCard.title"
                 type="text"
@@ -210,7 +269,10 @@
               />
             </div>
             <div>
-              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Description</label>
+              <label
+                class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2"
+                >Description</label
+              >
               <textarea
                 v-model="editingCard.description"
                 rows="3"
@@ -219,7 +281,10 @@
               ></textarea>
             </div>
             <div>
-              <label class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2">Tag</label>
+              <label
+                class="block text-sm sm:text-lg font-semibold text-gray-700 mb-2"
+                >Tag</label
+              >
               <input
                 v-model="editingCard.tag"
                 type="text"
@@ -227,39 +292,51 @@
                 placeholder="e.g., exciting, cool, maybe"
               />
             </div>
-            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2">
-              <button type="submit" :disabled="updateLoading" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+            <div
+              class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2"
+            >
+              <button
+                type="submit"
+                :disabled="updateLoading"
+                class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              >
                 <span v-if="updateLoading">Saving...</span>
                 <span v-else>Save Changes</span>
               </button>
-              <button type="button" @click="closeCardModal" class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold">Cancel</button>
+              <button
+                type="button"
+                @click="closeCardModal"
+                class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold"
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
       </div>
     </main>
   </div>
-   <footer class="py-8 text-center text-gray-500 text-sm">
-      <p>
-        Made with <span class="text-red-500">❤️</span> by
-        <a
-          href="https://github.com/leecheeyong"
-          target="_blank"
-          class="text-gray-700 hover:underline"
-        >
-          Chee Yong Lee
-        </a>
-      </p>
-      <p class="mt-1">
-        Project available as open source under the terms of
-        <a
-          href="https://github.com/leecheeyong/laterboard/blob/main/LICENSE"
-          target="_blank"
-          class="text-gray-700 hover:underline"
-          >MIT License</a
-        >
-      </p>
-    </footer>
+  <footer class="py-8 text-center text-gray-500 text-sm">
+    <p>
+      Made with <span class="text-red-500">❤️</span> by
+      <a
+        href="https://github.com/leecheeyong"
+        target="_blank"
+        class="text-gray-700 hover:underline"
+      >
+        Chee Yong Lee
+      </a>
+    </p>
+    <p class="mt-1">
+      Project available as open source under the terms of
+      <a
+        href="https://github.com/leecheeyong/laterboard/blob/main/LICENSE"
+        target="_blank"
+        class="text-gray-700 hover:underline"
+        >MIT License</a
+      >
+    </p>
+  </footer>
 </template>
 
 <script setup>
@@ -284,9 +361,9 @@ const updateLoading = ref(false);
 const addLoading = ref(false);
 
 const DEFAULT_STACKS = [
-  { id: 'ideas-i-like', name: 'Ideas I Like' },
-  { id: 'maybe-later', name: 'Maybe Later' },
-  { id: 'someday', name: 'Someday...' },
+  { id: "ideas-i-like", name: "Ideas I Like" },
+  { id: "maybe-later", name: "Maybe Later" },
+  { id: "someday", name: "Someday..." },
 ];
 
 function getStackCards(stackId) {

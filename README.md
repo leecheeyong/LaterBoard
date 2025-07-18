@@ -7,6 +7,7 @@ A minimal, calm space to offload your non-urgent ideas, creative thoughts, futur
 ![LaterBoard Screenshot](./demo.png)
 
 ## Features
+
 - Three stacks: **Ideas I Like**, **Maybe Later**, **Someday...**
 - Add, edit, and delete ideas in each stack
 - Responsive, clean, and modern UI
@@ -33,4 +34,5 @@ A minimal, calm space to offload your non-urgent ideas, creative thoughts, futur
    - Edit the `src/firebase.js` file, replace with your Firebase credentials
 
 ## License
+
 LaterBoard is available as open source under the terms of the [MIT License](https://github.com/leecheeyong/LaterBoard/blob/main/LICENSE).

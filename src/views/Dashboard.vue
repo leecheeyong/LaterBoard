@@ -183,9 +183,15 @@
         @click="closeCardModal"
       >
         <div
-          class="bg-white/95 backdrop-blur-2xl rounded-3xl p-4 sm:p-10 w-full max-w-lg mx-1 sm:mx-4 shadow-2xl border-2 border-primary-200 overflow-y-auto max-h-[95vh]"
+          class="bg-white/95 backdrop-blur-2xl rounded-3xl p-4 sm:p-10 w-full max-w-lg mx-1 sm:mx-4 shadow-2xl border-2 border-primary-200 overflow-y-auto max-h-[95vh] relative"
           @click.stop
         >
+          <button @click="deleteCard" class="absolute top-2 left-2 sm:top-4 sm:left-4 text-red-500 hover:text-red-700 p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-400 transition" aria-label="Delete">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V5a2 2 0 012-2h2a2 2 0 012 2v2" />
+            </svg>
+          </button>
+          <button @click="closeCardModal" class="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-primary-500 text-2xl sm:text-3xl font-bold focus:outline-none transition" aria-label="Close">&times;</button>
           <h3 class="text-xl sm:text-3xl font-extrabold mb-4 sm:mb-8 text-primary-700 text-center">
             Edit Idea
           </h3>
@@ -220,7 +226,6 @@
             </div>
             <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 pt-2">
               <button type="submit" class="w-full sm:flex-1 bg-gradient-to-r from-primary-400 to-primary-600 text-gray-900 rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg hover:from-primary-500 hover:to-primary-700 transition">Save Changes</button>
-              <button type="button" @click="deleteCard" class="w-full sm:flex-1 bg-red-600 hover:bg-red-700 text-white rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold shadow-lg transition">Delete</button>
               <button type="button" @click="closeCardModal" class="w-full sm:flex-1 btn-secondary rounded-xl py-2 sm:py-4 text-sm sm:text-lg font-bold">Cancel</button>
             </div>
           </form>
